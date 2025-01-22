@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Processing Results</h2>
+    <div class="card mb-3">
+        <div class="card-header">
+            Original Query: {{ original_query }}
+        </div>
+    </div>
+    
+    {% for result in results %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Query Chunk: {{ result.query }}</h5>
+                
+                <!-- <h6 class="mt-3">Closest Matches:</h6> -->
+                <!--{% for match, distance in result.matches %}
+                    <div class="alert alert-info">
+                        <strong>Match:</strong> {{ match }}<br>
+                        <strong>Distance:</strong> {{ distance }}
+                    </div>
+                {% endfor %}-->
+                
+                <h6 class="mt-3">Llama3.2 Response:</h6>
+                <div class="alert alert-success">
+                    {{ result.response }}
+                </div>
+                <h6 class="mt-3">Reference:</h6>
+                <div class="alert alert-success">
+                    {{ result.source_pdf }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    
+    <a href="{% url 'text_processor' %}" class="btn btn-primary">Process Another Query</a>
+</div>
+{% endblock %}

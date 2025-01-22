@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2 class="mb-4 text-center">Process Text with RAG System</h2>
+        <form method="post" enctype="multipart/form-data" class="border p-4 rounded shadow-sm">
+            {% csrf_token %}
+            
+            <div class="mb-4">
+                <label for="userText" class="form-label">{{ form.user_text.label }}</label>
+                {{ form.user_text }}
+                {% if form.user_text.errors %}
+                    <div class="text-danger mt-2">
+                        {% for error in form.user_text.errors %}
+                            <div>{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="mb-4">
+                <label for="outputLanguage" class="form-label">{{ form.output_language.label }}</label>
+                {{ form.output_language }}
+                {% if form.output_language.errors %}
+                    <div class="text-danger mt-2">
+                        {% for error in form.output_language.errors %}
+                            <div>{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <!--
+            <h3 class="mb-3">Add Your PDFs</h3>
+            <div class="mb-4">
+                <label for="pdfFiles" class="form-label">Upload PDF Files</label>
+                <input type="file" id="pdfFiles" name="pdf_files" multiple class="form-control">
+                <div class="form-text mt-2">You can upload multiple PDF files. These will be used for text processing and RAG integration.</div>
+            </div>
+        -->
+
+        <div class="d-grid mb-3">
+            <a href="{% url 'history' %}" class="btn btn-secondary btn-lg">History</a>
+        </div>
+        
+            
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg">Process</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
